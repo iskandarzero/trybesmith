@@ -8,20 +8,11 @@ export default class UserModel {
     this.connection = connection;
   }
 
-  public async create(
-    username: string,
-    classe: string,
-    level: number,
-    password: string,
-  ): Promise<User> {
-    const result = await this.connection
+  public async create({ username, classe, level, password }: User): Promise<void> {
+    await this.connection
       .execute<ResultSetHeader>(
-      'INSERT INTO Trybesmith.Users (username, classe, level, password) VALUES (?, ?, ?, ?',
+      'INSERT INTO Trybesmith.Users (username, classe, level, password) VALUES (?, ?, ?, ?);',
       [username, classe, level, password],
     );
-
-    const [dataInserted] = result;
-    const { insertId } = dataInserted;
-    return { id: insertId, username, classe, level, password };
   }
 }
