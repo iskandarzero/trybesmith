@@ -15,7 +15,14 @@ export default class OrderModel {
           o.id,
           o.userId,
           JSON_ARRAYAGG(p.id) productsIds
-        FROM Trybesmith.Orders o JOIN Trybesmith.Products p ON o.id = p.orderId GROUP BY o.id;`,
+        FROM
+          Trybesmith.Orders o
+        JOIN
+          Trybesmith.Products p
+        ON
+          o.id = p.orderId
+        GROUP BY o.id
+        ORDER BY o.userId;`,
       );
     const [rows] = result;
     
