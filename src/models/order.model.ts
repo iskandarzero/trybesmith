@@ -1,4 +1,4 @@
-import { Pool, ResultSetHeader } from 'mysql2/promise';
+import { Pool } from 'mysql2/promise';
 import Order from '../interfaces/order.interface';
 
 export default class OrderModel {
@@ -10,15 +10,15 @@ export default class OrderModel {
 
   public async getAll(): Promise<Order[]> {
     const result = await this.connection
-      .execute<ResultSetHeader>(
-      `SELECT
+      .execute(
+        `SELECT
           o.id,
           o.userId,
           JSON_ARRAYAGG(p.id) productsIds
         FROM Trybesmith.Orders o JOIN Trybesmith.Products p ON o.id = p.orderId GROUP BY o.id;`,
-    );
+      );
     const [rows] = result;
     
-    return rows as unknown as Order[];
+    return rows as Order[];
   }
 }
