@@ -4,14 +4,14 @@ import Token from '../interfaces/token.interface';
 
 dotenv.config();
 
-const jwtSecret = process.env.JWT_SECRET || 'segredo';
+const jwtSecret = 'segredo';
 
-const generateToken = async (user: string): Promise<Token> => {
+const generateToken = (username: string): Token => {
   const jwtConfig: SignOptions = {
     algorithm: 'HS256',
   };
 
-  const token = { token: sign({ data: user }, jwtSecret, jwtConfig) };
+  const token = { token: sign({ data: username }, jwtSecret, jwtConfig) };
 
   return token;
 };
