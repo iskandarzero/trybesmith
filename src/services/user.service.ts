@@ -9,7 +9,7 @@ export default class UserService {
 
   public async create(user: User): Promise<Token> {
     await this.model.create(user);
-    const token = await generateToken(user.username);
+    const token = generateToken(user.username);
     
     return token;
   }
