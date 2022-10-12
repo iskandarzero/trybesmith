@@ -11,7 +11,7 @@ export default class LoginService {
     const logged = await this.loginModel.login(user);
     
     if (logged) {
-      const token = generateToken(user.username);
+      const token = generateToken(user);
 
       return token;
     }
