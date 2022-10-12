@@ -1,17 +1,15 @@
 import { sign, SignOptions } from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import Login from '../interfaces/login.interface';
 import Token from '../interfaces/token.interface';
-
-dotenv.config();
 
 const jwtSecret = 'segredo';
 
-const generateToken = (username: string): Token => {
+const generateToken = (user: Login): Token => {
   const jwtConfig: SignOptions = {
     algorithm: 'HS256',
   };
 
-  const token = { token: sign({ data: username }, jwtSecret, jwtConfig) };
+  const token = { token: sign({ data: user }, jwtSecret, jwtConfig) };
 
   return token;
 };
